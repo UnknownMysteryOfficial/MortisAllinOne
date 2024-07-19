@@ -1,0 +1,73 @@
+name: MortisAllinOne
+version: '${project.version}'
+main: org.mortisdevelopment.mortisallinone.MortisAllinOne
+api-version: '1.13'
+authors: [MrErrorX]
+commands:
+  setspawn:
+    description: Allows you to set a spawnpoint in your desired location.
+    usage: /<command>
+  spawn:
+    description: Allows you to teleport to the spawnpoint if set.
+    usage: /<command>
+  rtp:
+    description: Allows you randomly teleport in your desired or current world.
+    usage: /<command> spawn
+  setwarp:
+    description: Allows you to set warps in worlds.
+    usage: /<command> warp_1
+  warp:
+    description: Allows you to teleport to warp locations.
+    usage: /<command> warp_1
+  mao:
+    description: Allows you to generate new worlds with different environment.
+    usage: /<command> world_new normal
+  maotp:
+    description: Allows you to teleport to any world easily.
+    usage: /<command> maotp world_new
+  maoimport:
+    description: Allows you to import any world.
+    usage: /<command> spawn
+  maounload:
+    description: Allows you to unload any world.
+    usage: /<command> lobby
+  spawner:
+    description: Allows you to have any type of spawner with certain entity type.
+    usage: /<command> zombie
+  maoplugin:
+    description: Allows you to enable, disable or reload any plugin in the server.
+    usage: /<command> CustomPlugin enable|disable|reload
+permissions:
+  mortis.aio.worldgenerate:
+    description: Generate custom worlds with environment type.
+  mortis.aio.worldimport:
+    description: Import any world to Bukkit.
+  mortis.aio.worldtp:
+    description: Teleport to any custom or imported world.
+  mortis.aio.worldunloader:
+    description: Unload any custom or imported world.
+  mortis.aio.rtp:
+    description: Randomly teleport to any world.
+  mortis.aio.setspawn:
+    description: Set a spawnpoint for player to teleport.
+  mortis.aio.spawn:
+    description: Teleport to the spawnpoint if set.
+  mortis.aio.spawner:
+    description: Give yourself any type of spawner with certain entity type.
+  mortis.aio.setwarp:
+    description: Set warp at your location
+  mortis.aio.warptp:
+    description: Teleport to warps.
+  mortis.aio.*:
+    description: Give yourself every permission
+    children:
+      - mortis.aio.worldgenerate
+      - mortis.aio.worldimport
+      - mortis.aio.worldtp
+      - mortis.aio.worldunloader
+      - mortis.aio.rtp
+      - mortis.aio.setspawn
+      - mortis.aio.spawn
+      - mortis.aio.spawner
+      - mortis.aio.setwarp
+      - mortis.aio.warptp

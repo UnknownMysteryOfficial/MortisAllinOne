@@ -1,0 +1,48 @@
+prefix: "&6&lMortis All-in-One &f&l> "
+#=======================================================================================================================
+#                                             MESSAGES SECTION
+#=======================================================================================================================
+# Message sent to the player when successfully setting a spawnpoint.
+spawnpoint-message: "&aSpawnpoint successfully set to you current location!"
+# Message sent to the player when teleporting to the spawnpoint.
+spawn-teleport-message: "&aTeleported to spawn successfully!"
+# Message sent to the player after successfully randomly teleported to a location.
+rtp-successful: "&aSuccessfully teleported to {world} at {x}, {y}, {z}!"
+# Message sent to the player when not providing a valid name for a warp to teleport
+invalid-name: "&cPlease provide a valid name to warp!"
+# Message sent to the player when no warp with the name provided by the player is found.
+no-warp-found: "No warp found with name {warp}. Please provide a valid name!"
+# Message sent to the player after successfully teleporting to a valid warp.
+warp-teleport: "&aSuccessfully teleported to warp {warp}."
+#=======================================================================================================================
+#                                             SPAWN SECTION
+#=======================================================================================================================
+spawn:
+  world: world
+  x: 0
+  y: 64
+  z: 0
+  pitch: 0
+  yaw: 0
+# Whether the player should be teleported to the spawnpoint on their first join or not.
+first-join-teleport: true
+# Whether the player should be teleported to the spawnpoint on joining the server or not.
+teleport-on-join: true
+# Whether the player should be teleported to the spawnpoint after dying or not.
+teleport-on-death: true
+#=======================================================================================================================
+#                                             WARPS SECTION
+#=======================================================================================================================
+motd-enabled: true
+motd:
+  1: "&a&l        Mortis All in One Plugin                                "
+  2: "&c Running v1.0!"
+#=======================================================================================================================
+#                                             WARPS SECTION
+#=======================================================================================================================
+# Contains the list of worlds, that were created or imported, to load them during server startup
+worlds: []
+#=======================================================================================================================
+#                                             WARPS SECTION
+#=======================================================================================================================
+warps-location-here: true # Please do not touch or change anything here, the plugin may work as intended but may cause warps locations to be saved anywhere in the config.
