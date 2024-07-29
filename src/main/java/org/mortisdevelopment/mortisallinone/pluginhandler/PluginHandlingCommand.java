@@ -31,7 +31,7 @@ public class PluginHandlingCommand implements TabExecutor {
 
             Player player = (Player) commandSender;
 
-            if (player.hasPermission("mortis.aio.plugindisable")){
+            if (player.hasPermission("mortis.aio.pluginhandler")){
 
                 if (args.length == 0){
 

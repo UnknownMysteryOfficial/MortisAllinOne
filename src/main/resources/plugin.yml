@@ -58,6 +58,8 @@ permissions:
     description: Set warp at your location
   mortis.aio.warptp:
     description: Teleport to warps.
+  mortis.aio.pluginghandler:
+    description: Allows you to enable, disable or reload plugins.
   mortis.aio.*:
     description: Give yourself every permission
     children:
@@ -71,3 +73,4 @@ permissions:
       - mortis.aio.spawner
       - mortis.aio.setwarp
       - mortis.aio.warptp
+      - mortis.aio.pluginhandler
