@@ -5,8 +5,12 @@ import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.mortisdevelopment.mortisallinone.MortisAllinOne;
+
+import java.io.File;
 
 public class SpawnTeleportCommand implements CommandExecutor {
 
@@ -20,10 +24,21 @@ public class SpawnTeleportCommand implements CommandExecutor {
         spawnTeleportMessage = plugin.getConfig().getString("spawn-teleport-message");
     }
 
+    private File getFile(String name) {
+        File file = new File(plugin.getDataFolder(), name);
+        if (!file.exists()) {
+            plugin.saveResource(name, true);
+        }
+        return file;
+    }
+
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] args) {
 
-        Location location = plugin.getConfig().getLocation("spawn");
+        File file = getFile("config.yml");
+        FileConfiguration config = YamlConfiguration.loadConfiguration(file);
+
+        Location location = config.getLocation("spawn");
 
         if (commandSender instanceof Player){
             Player player = (Player) commandSender;
@@ -50,4 +65,6 @@ public class SpawnTeleportCommand implements CommandExecutor {
 
         return true;
     }
+
+
 }

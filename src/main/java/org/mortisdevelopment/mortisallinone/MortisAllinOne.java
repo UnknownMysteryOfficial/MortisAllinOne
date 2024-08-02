@@ -25,16 +25,8 @@ public final class MortisAllinOne extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        // Plugin startup logic
+        loadWorlds();
         saveDefaultConfig();
-        FileConfiguration config = getConfig();
-        List<String> worlds = config.getStringList("worlds");
-        for (String worldName : worlds) {
-            if (Bukkit.getWorld(worldName) == null) {
-                World world = new WorldCreator(worldName).createWorld();
-                getLogger().info("Loading world: " + world.getName());
-            }
-        }
 
         getLogger().info("Mortis All-in-One successfully finished loading worlds!");
         getLogger().info("Mortis All-in-One was successfully loaded!");
@@ -54,6 +46,19 @@ public final class MortisAllinOne extends JavaPlugin {
         getCommand("maoplugin").setExecutor(new PluginHandlingCommand(this));
 
     }
+
+    private void loadWorlds() {
+        FileConfiguration config = getConfig();
+        List<String> worlds = config.getStringList("worlds");
+        for (String worldName : worlds) {
+            if (Bukkit.getWorld(worldName) == null) {
+                World world = new WorldCreator(worldName).createWorld();
+                getLogger().info("Loading world: " + world.getName());
+            }
+        }
+        getLogger().info("Mortis All-in-One successfully finished loading worlds!");
+    }
+
 
     @Override
     public void onDisable() {

@@ -8,12 +8,15 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.mortisdevelopment.mortisallinone.MortisAllinOne;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,11 +66,17 @@ public class WorldImportCommand implements CommandExecutor, TabCompleter {
 
                         }
                         player.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix + "&aWorld " + worldName + " successfully imported!"));
-                        List<String> worlds = plugin.getConfig().getStringList("worlds");
+                        File file = getFile("config.yml");
+                        FileConfiguration config = YamlConfiguration.loadConfiguration(file);
+                        List<String> worlds = config.getStringList("worlds");
                         if (!worlds.contains(worldName)){
                             worlds.add(worldName);
-                            plugin.getConfig().set("worlds", worlds);
-                            plugin.saveConfig();
+                            config.set("worlds", worlds);
+                            try {
+                                config.save(file);
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
                         }
                     }else{
 
@@ -112,11 +121,17 @@ public class WorldImportCommand implements CommandExecutor, TabCompleter {
 
                     }
                     plugin.getLogger().info("World " + worldName + " successfully imported!");
-                    List<String> worlds = plugin.getConfig().getStringList("worlds");
+                    File file = getFile("config.yml");
+                    FileConfiguration config = YamlConfiguration.loadConfiguration(file);
+                    List<String> worlds = config.getStringList("worlds");
                     if (!worlds.contains(worldName)){
                         worlds.add(worldName);
-                        plugin.getConfig().set("worlds", worlds);
-                        plugin.saveConfig();
+                        config.set("worlds", worlds);
+                        try {
+                            config.save(file);
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                 }else{
 
@@ -136,4 +151,13 @@ public class WorldImportCommand implements CommandExecutor, TabCompleter {
 
         return new ArrayList<>();
     }
+
+    private File getFile(String name) {
+        File file = new File(plugin.getDataFolder(), name);
+        if (!file.exists()) {
+            plugin.saveResource(name, true);
+        }
+        return file;
+    }
+
 }

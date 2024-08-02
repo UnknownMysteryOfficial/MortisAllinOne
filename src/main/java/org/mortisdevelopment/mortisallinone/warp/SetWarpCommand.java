@@ -7,9 +7,12 @@ import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.mortisdevelopment.mortisallinone.MortisAllinOne;
 
+import java.io.File;
 import java.io.IOException;
 
 public class SetWarpCommand implements CommandExecutor {
@@ -24,8 +27,19 @@ public class SetWarpCommand implements CommandExecutor {
         prefix = plugin.getConfig().getString("prefix");
     }
 
+    private File getFile(String name) {
+        File file = new File(plugin.getDataFolder(), name);
+        if (!file.exists()) {
+            plugin.saveResource(name, true);
+        }
+        return file;
+    }
+
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] args) {
+
+        File file = getFile("config.yml");
+        FileConfiguration config = YamlConfiguration.loadConfiguration(file);
 
         if (commandSender instanceof Player){
 
@@ -42,7 +56,7 @@ public class SetWarpCommand implements CommandExecutor {
 
                     String warpName = args[0];
 
-                    if (!plugin.getConfig().contains(warpName)){
+                    if (!config.contains(warpName)){
                         World warp = Bukkit.getServer().getWorld(args[0]);
 
                         Location location = player.getLocation();
@@ -55,11 +69,15 @@ public class SetWarpCommand implements CommandExecutor {
 
                         Location warpLocation = new Location(warp, x, y, z, pitch, yaw);
 
-                        plugin.getConfig().set(warpName, location);
-                        plugin.saveConfig();
+                        config.set(warpName, location);
+                        try {
+                            config.save(file);
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
 
                         player.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix + "&aSuccessfully set warp " + warpName + " at your location!"));
-                    } else if (plugin.getConfig().contains(warpName)) {
+                    } else if (config.contains(warpName)) {
 
                         World warp = Bukkit.getServer().getWorld(args[0]);
 
@@ -73,8 +91,12 @@ public class SetWarpCommand implements CommandExecutor {
 
                         Location warpLocation = new Location(warp, x, y, z, yaw, pitch);
 
-                        plugin.getConfig().set(warpName, location);
-                        plugin.saveConfig();
+                        config.set(warpName, location);
+                        try {
+                            config.save(file);
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
 
                         player.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix + "&aSuccessfully updated warp " + warpName + " location!"));
 

@@ -1,22 +1,21 @@
 package org.mortisdevelopment.mortisallinone.warp;
 
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
-import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.mortisdevelopment.mortisallinone.MortisAllinOne;
 
+import java.io.File;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 
 public class WarpTeleportCommand implements CommandExecutor, TabCompleter {
@@ -35,8 +34,19 @@ public class WarpTeleportCommand implements CommandExecutor, TabCompleter {
         warpTeleport = plugin.getConfig().getString("warp-teleport");
     }
 
+    private File getFile(String name) {
+        File file = new File(plugin.getDataFolder(), name);
+        if (!file.exists()) {
+            plugin.saveResource(name, true);
+        }
+        return file;
+    }
+
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] args) {
+
+        File file = getFile("config.yml");
+        FileConfiguration config = YamlConfiguration.loadConfiguration(file);
 
         if (commandSender instanceof Player){
 
@@ -51,7 +61,7 @@ public class WarpTeleportCommand implements CommandExecutor, TabCompleter {
                 } else if (args.length == 1) {
 
                     String warpName = args[0];
-                    Location location = plugin.getConfig().getLocation(warpName);
+                    Location location = config.getLocation(warpName);
 
                     if (location != null){
 
