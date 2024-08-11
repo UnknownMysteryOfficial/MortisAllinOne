@@ -8,11 +8,15 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.mortisdevelopment.mortisallinone.MortisAllinOne;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -73,11 +77,17 @@ public class WorldGenerateCommand implements CommandExecutor, TabCompleter {
 
                             Bukkit.getWorld(worldName);
                             player.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix + "&aWorld successfully created!"));
-                            List<String> worlds = plugin.getConfig().getStringList("worlds");
+                            File file = getFile("worlds.yml");
+                            FileConfiguration config = YamlConfiguration.loadConfiguration(file);
+                            List<String> worlds = config.getStringList("worlds");
                             if (!worlds.contains(worldName)) {
                                 worlds.add(worldName);
-                                plugin.getConfig().set("worlds", worlds);
-                                plugin.saveConfig();
+                                config.set("worlds", worlds);
+                                try {
+                                    config.save(file);
+                                } catch (IOException e) {
+                                    throw new RuntimeException(e);
+                                }
                             }
 
                         } else if (world == null) {
@@ -117,4 +127,13 @@ public class WorldGenerateCommand implements CommandExecutor, TabCompleter {
 
         return new ArrayList<>();
     }
+
+    private File getFile(String name) {
+        File file = new File(plugin.getDataFolder(), name);
+        if (!file.exists()) {
+            plugin.saveResource(name, true);
+        }
+        return file;
+    }
+
 }

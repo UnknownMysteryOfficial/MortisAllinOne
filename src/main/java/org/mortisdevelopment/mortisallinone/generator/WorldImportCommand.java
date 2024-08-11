@@ -66,7 +66,7 @@ public class WorldImportCommand implements CommandExecutor, TabCompleter {
 
                         }
                         player.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix + "&aWorld " + worldName + " successfully imported!"));
-                        File file = getFile("config.yml");
+                        File file = getFile("worlds.yml");
                         FileConfiguration config = YamlConfiguration.loadConfiguration(file);
                         List<String> worlds = config.getStringList("worlds");
                         if (!worlds.contains(worldName)){
@@ -121,7 +121,7 @@ public class WorldImportCommand implements CommandExecutor, TabCompleter {
 
                     }
                     plugin.getLogger().info("World " + worldName + " successfully imported!");
-                    File file = getFile("config.yml");
+                    File file = getFile("worlds.yml");
                     FileConfiguration config = YamlConfiguration.loadConfiguration(file);
                     List<String> worlds = config.getStringList("worlds");
                     if (!worlds.contains(worldName)){

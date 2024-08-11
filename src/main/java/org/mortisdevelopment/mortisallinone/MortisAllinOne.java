@@ -4,6 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.mortisdevelopment.mortisallinone.generator.WorldGenerateCommand;
 import org.mortisdevelopment.mortisallinone.generator.WorldImportCommand;
@@ -19,6 +20,7 @@ import org.mortisdevelopment.mortisallinone.spawner.SpawnerGiveCommand;
 import org.mortisdevelopment.mortisallinone.warp.SetWarpCommand;
 import org.mortisdevelopment.mortisallinone.warp.WarpTeleportCommand;
 
+import java.io.File;
 import java.util.List;
 
 public final class MortisAllinOne extends JavaPlugin {
@@ -28,9 +30,8 @@ public final class MortisAllinOne extends JavaPlugin {
         loadWorlds();
         saveDefaultConfig();
 
-        getLogger().info("Mortis All-in-One successfully finished loading worlds!");
         getLogger().info("Mortis All-in-One was successfully loaded!");
-        getLogger().info("Running version 1.0.");
+        getLogger().info("Running version 1.3.");
         getCommand("setspawn").setExecutor(new SpawnPointCommand(this));
         getCommand("spawn").setExecutor(new SpawnTeleportCommand(this));
         getServer().getPluginManager().registerEvents(new SpawnTeleportListener(this), this);
@@ -47,8 +48,17 @@ public final class MortisAllinOne extends JavaPlugin {
 
     }
 
+    private File getFile(String name) {
+        File file = new File(getDataFolder(), name);
+        if (!file.exists()) {
+            saveResource(name, true);
+        }
+        return file;
+    }
+
     private void loadWorlds() {
-        FileConfiguration config = getConfig();
+        File file = getFile("worlds.yml");
+        FileConfiguration config = YamlConfiguration.loadConfiguration(file);
         List<String> worlds = config.getStringList("worlds");
         for (String worldName : worlds) {
             if (Bukkit.getWorld(worldName) == null) {
