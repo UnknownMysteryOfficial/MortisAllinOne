@@ -4,6 +4,8 @@ main: org.mortisdevelopment.mortisallinone.MortisAllinOne
 api-version: '1.13'
 authors: [MrErrorX]
 load: POSTWORLD
+loadbefore:
+  - MortisBattleRoyale
 commands:
   setspawn:
     description: Allows you to set a spawnpoint in your desired location.

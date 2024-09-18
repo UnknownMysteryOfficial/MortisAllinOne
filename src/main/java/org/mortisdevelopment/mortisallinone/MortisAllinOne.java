@@ -6,10 +6,7 @@ import org.bukkit.WorldCreator;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.mortisdevelopment.mortisallinone.generator.WorldGenerateCommand;
-import org.mortisdevelopment.mortisallinone.generator.WorldImportCommand;
-import org.mortisdevelopment.mortisallinone.generator.WorldTeleporter;
-import org.mortisdevelopment.mortisallinone.generator.WorldUnloaderCommand;
+import org.mortisdevelopment.mortisallinone.generator.*;
 import org.mortisdevelopment.mortisallinone.motd.MotdListener;
 import org.mortisdevelopment.mortisallinone.pluginhandler.PluginHandlingCommand;
 import org.mortisdevelopment.mortisallinone.rtp.RandomTeleportCommand;
@@ -25,8 +22,11 @@ import java.util.List;
 
 public final class MortisAllinOne extends JavaPlugin {
 
+    private WorldManager worldManager;
+
     @Override
     public void onEnable() {
+        this.worldManager = new WorldManager(this);
         loadWorlds();
         saveDefaultConfig();
 
@@ -67,6 +67,10 @@ public final class MortisAllinOne extends JavaPlugin {
             }
         }
         getLogger().info("Mortis All-in-One successfully finished loading worlds!");
+    }
+
+    public WorldManager getWorldManager(){
+        return worldManager;
     }
 
 

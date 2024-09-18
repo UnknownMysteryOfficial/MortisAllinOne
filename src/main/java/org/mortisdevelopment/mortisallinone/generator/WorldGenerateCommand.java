@@ -3,7 +3,6 @@ package org.mortisdevelopment.mortisallinone.generator;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.World;
-import org.bukkit.WorldCreator;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -58,73 +57,33 @@ public class WorldGenerateCommand implements CommandExecutor, TabCompleter {
                 }else if (args.length == 2){
 
                     String worldName = args[0];
-
                     World.Environment environment = World.Environment.valueOf(args[1].toUpperCase());
 
                     if (Bukkit.getWorld(worldName) != null){
-
                         player.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix + "&cWorld with that name already exists!"));
-
                     }else{
-
-                        WorldCreator worldCreator = new WorldCreator(worldName);
-                        worldCreator.environment(environment);
-                        World world = Bukkit.createWorld(worldCreator);
-
+                        plugin.getWorldManager().worldCreation(worldName, environment);
                         player.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix + "&aCreating world....."));
-
-                        if (world != null){
-
-                            Bukkit.getWorld(worldName);
-                            player.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix + "&aWorld successfully created!"));
-                            File file = getFile("worlds.yml");
-                            FileConfiguration config = YamlConfiguration.loadConfiguration(file);
-                            List<String> worlds = config.getStringList("worlds");
-                            if (!worlds.contains(worldName)) {
-                                worlds.add(worldName);
-                                config.set("worlds", worlds);
-                                try {
-                                    config.save(file);
-                                } catch (IOException e) {
-                                    throw new RuntimeException(e);
-                                }
-                            }
-
-                        } else if (world == null) {
-
+                        player.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix + "&aWorld successfully created!"));
+                        if (Bukkit.getWorld(worldName) == null){
                             player.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix + "&cThe plugin ran into a problem while creating world named " + worldName +"."));
-
                         }
-
                     }
-
                 }
             }else {
-
                 player.sendMessage(ChatColor.translateAlternateColorCodes('&', prefix + "&cYou don't have enough permission to run this command!"));
-
             }
-
-
         }else {
-
             plugin.getLogger().info("This command can only be ran by a player!");
-
         }
-
-
         return true;
     }
 
     @Override
     public @Nullable List<String> onTabComplete(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
-
         if (args.length == 2){
-
             return Arrays.asList("normal", "nether", "the_end");
-
         }
-
         return new ArrayList<>();
     }
 
@@ -136,4 +95,18 @@ public class WorldGenerateCommand implements CommandExecutor, TabCompleter {
         return file;
     }
 
+    private void saveToConfig(String worldName){
+        File file = getFile("worlds.yml");
+        FileConfiguration config = YamlConfiguration.loadConfiguration(file);
+        List<String> worlds = config.getStringList("worlds");
+        if (!worlds.contains(worldName)) {
+            worlds.add(worldName);
+            config.set("worlds", worlds);
+            try {
+                config.save(file);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
 }

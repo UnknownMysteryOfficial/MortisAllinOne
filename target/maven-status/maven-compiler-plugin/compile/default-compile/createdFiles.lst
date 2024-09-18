@@ -5,6 +5,7 @@ org\mortisdevelopment\mortisallinone\generator\WorldTeleporter.class
 org\mortisdevelopment\mortisallinone\motd\MotdListener.class
 org\mortisdevelopment\mortisallinone\generator\WorldUnloaderCommand.class
 org\mortisdevelopment\mortisallinone\spawn\SpawnTeleportCommand.class
+org\mortisdevelopment\mortisallinone\generator\WorldManager.class
 org\mortisdevelopment\mortisallinone\spawn\SpawnPointCommand.class
 org\mortisdevelopment\mortisallinone\generator\WorldGenerateCommand.class
 org\mortisdevelopment\mortisallinone\rtp\RandomTeleportCommand.class
