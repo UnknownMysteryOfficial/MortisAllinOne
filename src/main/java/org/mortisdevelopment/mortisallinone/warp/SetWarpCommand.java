@@ -38,7 +38,7 @@ public class SetWarpCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] args) {
 
-        File file = getFile("config.yml");
+        File file = getFile("warps.yml");
         FileConfiguration config = YamlConfiguration.loadConfiguration(file);
 
         if (commandSender instanceof Player){

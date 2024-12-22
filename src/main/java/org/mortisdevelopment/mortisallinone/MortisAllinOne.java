@@ -7,6 +7,8 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.mortisdevelopment.mortisallinone.generator.*;
+import org.mortisdevelopment.mortisallinone.homes.HomeTeleportCommand;
+import org.mortisdevelopment.mortisallinone.homes.SetHomeCommand;
 import org.mortisdevelopment.mortisallinone.motd.MotdListener;
 import org.mortisdevelopment.mortisallinone.pluginhandler.PluginHandlingCommand;
 import org.mortisdevelopment.mortisallinone.rtp.RandomTeleportCommand;
@@ -26,12 +28,13 @@ public final class MortisAllinOne extends JavaPlugin {
 
     @Override
     public void onEnable() {
+
         this.worldManager = new WorldManager(this);
         loadWorlds();
         saveDefaultConfig();
 
         getLogger().info("Mortis All-in-One was successfully loaded!");
-        getLogger().info("Running version 1.3.");
+        getLogger().info("Running version 1.5");
         getCommand("setspawn").setExecutor(new SpawnPointCommand(this));
         getCommand("spawn").setExecutor(new SpawnTeleportCommand(this));
         getServer().getPluginManager().registerEvents(new SpawnTeleportListener(this), this);
@@ -45,7 +48,8 @@ public final class MortisAllinOne extends JavaPlugin {
         getCommand("maounload").setExecutor(new WorldUnloaderCommand(this));
         getCommand("spawner").setExecutor(new SpawnerGiveCommand(this));
         getCommand("maoplugin").setExecutor(new PluginHandlingCommand(this));
-
+        getCommand("sethome").setExecutor(new SetHomeCommand(this));
+        getCommand("home").setExecutor(new HomeTeleportCommand(this));
     }
 
     private File getFile(String name) {
@@ -55,6 +59,7 @@ public final class MortisAllinOne extends JavaPlugin {
         }
         return file;
     }
+
 
     private void loadWorlds() {
         File file = getFile("worlds.yml");

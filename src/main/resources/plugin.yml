@@ -6,6 +6,7 @@ authors: [MrErrorX]
 load: POSTWORLD
 loadbefore:
   - MortisBattleRoyale
+  - PortalTeleporter
 commands:
   setspawn:
     description: Allows you to set a spawnpoint in your desired location.
@@ -40,6 +41,12 @@ commands:
   maoplugin:
     description: Allows you to enable, disable or reload any plugin in the server.
     usage: /<command> CustomPlugin enable|disable|reload
+  sethome:
+    description: Allows players to set home to their current location.
+    usage: /<command> home_name
+  home:
+    description: Allows you to teleport to your mentioned home.
+    usage: /<command> home_name
 permissions:
   mortis.aio.worldgenerate:
     description: Generate custom worlds with environment type.
@@ -63,6 +70,10 @@ permissions:
     description: Teleport to warps.
   mortis.aio.pluginghandler:
     description: Allows you to enable, disable or reload plugins.
+  mortis.aio.sethome.1:
+    description: Allows players to set 1 home to their location, increase the number to change how many homes they can set.
+  mortis.aio.home:
+    description: Allows players to teleport to their mentioned home.
   mortis.aio.*:
     description: Give yourself every permission
     children:
@@ -77,3 +88,5 @@ permissions:
       - mortis.aio.setwarp
       - mortis.aio.warptp
       - mortis.aio.pluginhandler
+      - mortis.aio.sethome.100
+      - mortis.aio.home

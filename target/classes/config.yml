@@ -38,8 +38,3 @@ motd-enabled: true
 motd:
   1: "&a&l        Mortis All in One Plugin                                "
   2: "&c Running v1.0!"
-
-#=======================================================================================================================
-#                                             WARPS SECTION
-#=======================================================================================================================
-warps-location-here: true # Please do not touch or change anything here, the plugin may work as intended but may cause warps locations to be saved anywhere in the config.

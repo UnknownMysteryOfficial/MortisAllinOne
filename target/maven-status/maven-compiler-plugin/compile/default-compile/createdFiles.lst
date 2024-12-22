@@ -4,12 +4,14 @@ org\mortisdevelopment\mortisallinone\pluginhandler\PluginHandlingCommand.class
 org\mortisdevelopment\mortisallinone\generator\WorldTeleporter.class
 org\mortisdevelopment\mortisallinone\motd\MotdListener.class
 org\mortisdevelopment\mortisallinone\generator\WorldUnloaderCommand.class
+org\mortisdevelopment\mortisallinone\homes\SetHomeCommand.class
 org\mortisdevelopment\mortisallinone\spawn\SpawnTeleportCommand.class
 org\mortisdevelopment\mortisallinone\generator\WorldManager.class
 org\mortisdevelopment\mortisallinone\spawn\SpawnPointCommand.class
 org\mortisdevelopment\mortisallinone\generator\WorldGenerateCommand.class
 org\mortisdevelopment\mortisallinone\rtp\RandomTeleportCommand.class
 org\mortisdevelopment\mortisallinone\spawn\SpawnTeleportListener.class
+org\mortisdevelopment\mortisallinone\homes\HomeTeleportCommand.class
 org\mortisdevelopment\mortisallinone\spawner\SpawnerGiveCommand.class
 org\mortisdevelopment\mortisallinone\MortisAllinOne.class
 org\mortisdevelopment\mortisallinone\warp\SetWarpCommand.class

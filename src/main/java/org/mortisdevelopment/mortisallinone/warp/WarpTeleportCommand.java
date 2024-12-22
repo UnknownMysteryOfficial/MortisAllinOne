@@ -45,7 +45,7 @@ public class WarpTeleportCommand implements CommandExecutor, TabCompleter {
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] args) {
 
-        File file = getFile("config.yml");
+        File file = getFile("warps.yml");
         FileConfiguration config = YamlConfiguration.loadConfiguration(file);
 
         if (commandSender instanceof Player){
