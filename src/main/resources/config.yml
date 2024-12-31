@@ -31,6 +31,8 @@ first-join-teleport: true
 teleport-on-join: true
 # Whether the player should be teleported to the spawnpoint after dying or not.
 teleport-on-death: true
+# Whether the RTP feature should be enabled or not.
+rtp-enable: true
 #=======================================================================================================================
 #                                             MOTD SECTION
 #=======================================================================================================================
